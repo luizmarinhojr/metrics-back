@@ -1,0 +1,16 @@
+header {
+    background-color:rgb(233, 233, 233);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0px 15px 0px;
+}
+
+.context {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
