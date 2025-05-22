@@ -1,19 +1,72 @@
-<h2 class="text-center mt-4">Adicionar</h2>
-<div class="form mt-5">
-    <form>
-        <div class="row">
-            <div class="col">
-                <label id="name" class="form-label">Nome Corretor(a)</label>
-                <input type="text" id="name" class="form-control">
-            </div>
-            <div class="col">
-                <label id="calls" class="form-label">Ligações</label>
-                <input type="number" id="calls" class="form-control">
-            </div>
-            <div class="col">
-                <label id="visits" class="form-label">Visitas</label>
-                <input type="number" id="calls" class="form-control">
-            </div>
-        </div>
-    </form>
-</div>
+<main class="container">
+    <div class="form">
+        <form>
+            <fieldset class="my-5">
+                <legend class="text-center">Informação</legend>
+
+                <div class="row justify-content-center">
+                    <div class="col-md-4 col-sm-5">
+                        <label id="date" class="form-label">Data</label>
+                        <input type="date" id="date" class="form-control" [value]="date">
+                    </div>
+                    <div class="col-md-4 col-sm-5">
+                        <label id="name" class="form-label">Nome Corretor(a)</label>
+                        <input type="text" id="name" class="form-control">
+                    </div>
+                </div>
+            </fieldset>
+            
+            <fieldset class="my-5">
+                <legend class="text-center">Métricas</legend>
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label id="leads" class="form-label">Leads Recebidos</label>
+                        <input type="number" id="leads" class="form-control">
+                    </div>
+                    <div class="col-sm-3">
+                        <label id="ligacoes" class="form-label">Ligações</label>
+                        <input type="number" id="ligacoes" class="form-control">
+                    </div>
+                    <div class="col-sm-3">
+                        <label id="espontaneo" class="form-label">Espontâneo</label>
+                        <input type="number" id="espontaneo" class="form-control">
+                    </div>
+                    <div class="col-sm-3">
+                        <label id="captacoes" class="form-label">Captações</label>
+                        <input type="number" id="captacoes" class="form-control">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label id="visitas" class="form-label">Visitas</label>
+                        <input type="number" id="visitas" class="form-control">
+                    </div>
+                    <div class="col-sm-3">
+                        <label id="negociacoes" class="form-label">Negociações</label>
+                        <input type="number" id="negociacoes" class="form-control">
+                    </div>
+                    <div class="col-sm-3">
+                        <label id="propostas" class="form-label">Propostas</label>
+                        <input type="number" id="propostas" class="form-control">
+                    </div>
+                    <div class="col-sm-3">
+                        <label id="vendas" class="form-label">Vendas</label>
+                        <input type="number" id="vendas" class="form-control">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label id="observacoes" class="form-label">Observações</label>
+                        <textarea class="form-control" id="observacoes" rows="5" maxlength="300"></textarea>
+                    </div>
+                </div>
+            </fieldset>
+            
+
+            
+        </form>
+    </div>
+</main>

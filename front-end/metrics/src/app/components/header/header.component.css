@@ -1,5 +1,5 @@
 header {
-    background-color:rgb(233, 233, 233);
+    background-color:rgb(14, 14, 14);
 }
 
 .header {
@@ -13,4 +13,8 @@ header {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.message {
+    color: rgb(235, 235, 235);
 }

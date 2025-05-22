@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-add',
@@ -6,6 +6,17 @@ import { Component } from '@angular/core';
   templateUrl: './add.component.html',
   styleUrl: './add.component.css'
 })
-export class AddComponent {
+export class AddComponent implements OnInit{
+  date!: string;
 
+  constructor() {}
+
+  ngOnInit(): void {
+    this.setCurrentDate();
+  }
+
+  setCurrentDate(): void {
+    const hoje = new Date();
+    this.date = hoje.toISOString().substring(0, 10);
+  }
 }
