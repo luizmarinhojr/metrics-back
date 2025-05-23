@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MetricRequest } from '../../models/metric';
 
 @Component({
   selector: 'app-add',
@@ -8,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddComponent implements OnInit{
   date!: string;
+  metrics!: MetricRequest[];
 
   constructor() {}
 

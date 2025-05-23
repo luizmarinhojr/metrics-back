@@ -16,32 +16,21 @@
             </tr>
         </thead>
         <tbody class="table-group-divider">
-            <tr>
-                <td>23/05/2025</td>
-                <td>Luiz Marinho</td>
-                <td>31</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-            </tr>
-            <tr>
-                <td>23/05/2025</td>
-                <td>Luiz Marinho</td>
-                <td>31</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-            </tr>
+            @for (item of metrics; track $index) {
+                <tr>
+                    <td>{{ item.data }}</td>
+                    <td>{{ item.nome }}</td>
+                    <td>{{ item.leadsRecebidos }}</td>
+                    <td>{{ item.ligacoes }}</td>
+                    <td>{{ item.espontaneo }}</td>
+                    <td>{{ item.captacoes }}</td>
+                    <td>{{ item.visitas }}</td>
+                    <td>{{ item.negociacoes }}</td>
+                    <td>{{ item.propostas }}</td>
+                    <td>{{ item.vendas }}</td>
+                    <td>{{ item.observacao }}</td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>

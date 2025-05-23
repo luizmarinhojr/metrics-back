@@ -1,4 +1,4 @@
-export interface Metric {
+export interface MetricRequest {
     data: string;
     nome: string;
     leadsRecebidos: number;
@@ -9,5 +9,20 @@ export interface Metric {
     negociacoes: number;
     propostas: number;
     vendas: number;
-    observacao: number;
+    observacao: string;
+}
+
+export interface MetricResponse {
+    id: number;
+    data: string;
+    nome: string;
+    leadsRecebidos: number;
+    ligacoes: number;
+    espontaneo: number;
+    captacoes: number;
+    visitas: number;
+    negociacoes: number;
+    propostas: number;
+    vendas: number;
+    observacao: string;
 }
