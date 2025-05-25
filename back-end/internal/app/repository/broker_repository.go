@@ -23,6 +23,16 @@ func (br *BrokerRepository) GetAll() *[]model.Broker {
 
 func (br *BrokerRepository) GetByName(name *string) *model.Broker {
 	var broker model.Broker
-	br.db.Where("nome = ?").First(&broker)
+	br.db.Where("nome = ?", name).First(&broker)
+	return &broker
+}
+
+func (br *BrokerRepository) Create(broker *model.Broker) {
+	br.db.Create(broker)
+}
+
+func (br *BrokerRepository) GetById(id uint) *model.Broker {
+	var broker model.Broker
+	br.db.First(&broker, id)
 	return &broker
 }

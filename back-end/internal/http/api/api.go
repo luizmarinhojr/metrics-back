@@ -12,12 +12,14 @@ func InitializeApi(dependencies *dependencies.Dependencies) {
 	{
 		{
 			baseURL.GET("/brokers", dependencies.BrokerHandler.GetAll)
-			baseURL.GET("/broker/id")
-			baseURL.GET("/broker/name")
+			baseURL.GET("/broker/id", dependencies.BrokerHandler.GetById)
+			baseURL.GET("/broker/name", dependencies.BrokerHandler.GetByName)
+			baseURL.POST("/broker", dependencies.BrokerHandler.Create)
 		}
 		{
-			baseURL.GET("metrics")
+			baseURL.GET("metrics", dependencies.MetricHandler.GetAll)
 			baseURL.GET("metrics/id")
+			baseURL.POST("metric")
 		}
 	}
 
