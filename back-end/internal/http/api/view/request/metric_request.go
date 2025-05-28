@@ -43,3 +43,22 @@ func (mt *Metric) Validate() error {
 	}
 	return nil
 }
+
+type MetricId struct {
+	ID uint `json:"id" validate:"required"`
+}
+
+func (mt *MetricId) New() *model.Metric {
+	return &model.Metric{
+		ID: mt.ID,
+	}
+}
+
+func (mt *MetricId) Validate() error {
+	validator := validator.New()
+	err := validator.Struct(mt)
+	if err != nil {
+		return err
+	}
+	return nil
+}

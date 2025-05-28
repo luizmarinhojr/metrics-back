@@ -11,15 +11,19 @@ func InitializeApi(dependencies *dependencies.Dependencies) {
 	baseURL := r.Group("/api/v1")
 	{
 		{
-			baseURL.GET("/brokers", dependencies.BrokerHandler.GetAll)
-			baseURL.GET("/broker/id", dependencies.BrokerHandler.GetById)
-			baseURL.GET("/broker/name", dependencies.BrokerHandler.GetByName)
-			baseURL.POST("/broker", dependencies.BrokerHandler.Create)
+			baseURL.GET("brokers", dependencies.Middlewares.CheckAuth.Auth, dependencies.Handlers.BrokerHandler.GetAll)
+			baseURL.GET("broker/id", dependencies.Middlewares.CheckAuth.Auth, dependencies.Handlers.BrokerHandler.GetById)
+			baseURL.GET("broker/name", dependencies.Middlewares.CheckAuth.Auth, dependencies.Handlers.BrokerHandler.GetByName)
+			baseURL.POST("broker", dependencies.Middlewares.CheckAuth.Auth, dependencies.Handlers.BrokerHandler.Create)
 		}
 		{
-			baseURL.GET("metrics", dependencies.MetricHandler.GetAll)
-			baseURL.GET("metrics/id")
-			baseURL.POST("metric")
+			baseURL.GET("metrics", dependencies.Middlewares.CheckAuth.Auth, dependencies.Handlers.MetricHandler.GetAll)
+			baseURL.GET("metric/id", dependencies.Middlewares.CheckAuth.Auth, dependencies.Handlers.MetricHandler.GetByID)
+			baseURL.POST("metric", dependencies.Middlewares.CheckAuth.Auth, dependencies.Handlers.MetricHandler.Create)
+		}
+		{
+			baseURL.POST("login", dependencies.Handlers.UserHandler.GetByEmail)
+			baseURL.POST("signup", dependencies.Handlers.UserHandler.Create)
 		}
 	}
 

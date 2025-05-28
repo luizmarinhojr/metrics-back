@@ -18,7 +18,7 @@ func OpenConnection() *gorm.DB {
 		log.Fatal("Error to connect to database:", err)
 	}
 
-	db.AutoMigrate(&model.Broker{}, &model.Metric{})
+	db.AutoMigrate(&model.User{}, &model.Broker{}, &model.Metric{})
 
 	log.Println("Database Ready!")
 

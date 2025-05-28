@@ -5,17 +5,19 @@ import (
 	"github.com/luizmarinhojr/metrics/internal/app/model"
 )
 
-type BrokerName struct {
-	Nome string `json:"nome" validate:"required,min=2,max=50"`
+type Broker struct {
+	Nome   string `json:"nome" validate:"required,min=2,max=50"`
+	UserID uint   `json:"user_id" validate:"required,number"`
 }
 
-func (br *BrokerName) New() *model.Broker {
+func (br *Broker) New() *model.Broker {
 	return &model.Broker{
-		Nome: br.Nome,
+		Nome:   br.Nome,
+		UserID: br.UserID,
 	}
 }
 
-func (br *BrokerName) Validate() error {
+func (br *Broker) Validate() error {
 	validate := validator.New()
 	err := validate.Struct(br)
 	if err != nil {
@@ -28,7 +30,32 @@ type BrokerId struct {
 	ID uint `json:"id" validate:"required"`
 }
 
+func (br *BrokerId) New() *model.Broker {
+	return &model.Broker{
+		ID: br.ID,
+	}
+}
+
 func (br *BrokerId) Validate() error {
+	validate := validator.New()
+	err := validate.Struct(br)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type BrokerName struct {
+	Nome string `json:"nome" validate:"required,min=2,max=50"`
+}
+
+func (br *BrokerName) New() *model.Broker {
+	return &model.Broker{
+		Nome: br.Nome,
+	}
+}
+
+func (br *BrokerName) Validate() error {
 	validate := validator.New()
 	err := validate.Struct(br)
 	if err != nil {

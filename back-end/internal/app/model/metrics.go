@@ -1,6 +1,8 @@
 package model
 
 import (
+	"time"
+
 	"github.com/luizmarinhojr/metrics/internal/http/api/view/response"
 	"gorm.io/gorm"
 )
@@ -19,13 +21,17 @@ type Metric struct {
 	Propostas      int
 	Vendas         int
 	Observacao     string
+	Corretor       Broker `gorm:"foreignKey:CorretorID"`
+	CreatedAt      time.Time
+	UpdatedAt      time.Time
+	DeletedAt      *time.Time
 }
 
 func (mt *Metric) NewResponse() *response.Metric {
 	return &response.Metric{
 		ID:             mt.ID,
 		Data:           mt.Data,
-		CorretorID:     mt.CorretorID,
+		Corretor:       *mt.Corretor.NewResponse(),
 		LeadsRecebidos: mt.LeadsRecebidos,
 		Ligacoes:       mt.Ligacoes,
 		Espontaneo:     mt.Espontaneo,
@@ -35,5 +41,7 @@ func (mt *Metric) NewResponse() *response.Metric {
 		Propostas:      mt.Propostas,
 		Vendas:         mt.Vendas,
 		Observacao:     mt.Observacao,
+		CreatedAt:      &mt.CreatedAt,
+		UpdatedAt:      &mt.UpdatedAt,
 	}
 }

@@ -2,9 +2,9 @@ package response
 
 import "time"
 
-type Broker struct {
+type User struct {
 	ID        uint       `json:"id"`
-	Nome      string     `json:"nome"`
+	Email     string     `json:"email"`
 	CreatedAt *time.Time `json:"created_at"`
 	UpdatedAt *time.Time `json:"updated_at"`
 }

@@ -5,14 +5,13 @@ import "github.com/luizmarinhojr/metrics/internal/app/usecase"
 type Handler struct {
 	BrokerHandler *BrokerHandler
 	MetricHandler *MetricHandler
+	UserHandler   *UserHandler
 }
 
 func NewHandler(usecases *usecase.UseCase) *Handler {
-	bh := newBrokerHandler(usecases.BrokerUseCase)
-	mu := newMetricHandler(usecases.MetricUseCase)
-
 	return &Handler{
-		BrokerHandler: bh,
-		MetricHandler: mu,
+		BrokerHandler: newBrokerHandler(usecases.BrokerUseCase),
+		MetricHandler: newMetricHandler(usecases.MetricUseCase),
+		UserHandler:   newUserHandler(usecases.UserUseCase),
 	}
 }

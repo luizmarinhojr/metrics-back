@@ -26,30 +26,29 @@ func (bu *BrokerUseCase) GetAll() *[]response.Broker {
 	return &brokersResponse
 }
 
-func (bu *BrokerUseCase) Create(broker *request.BrokerName) (*response.Broker, error) {
-	err := broker.Validate()
+func (bu *BrokerUseCase) Create(broker *request.Broker) (*response.Broker, error) {
+	brokerModel := broker.New()
+	err := bu.repository.Create(brokerModel)
 	if err != nil {
 		return nil, err
 	}
-	brokerModel := broker.New()
-	bu.repository.Create(brokerModel)
 	return brokerModel.NewResponse(), nil
 }
 
 func (bu *BrokerUseCase) GetByName(broker *request.BrokerName) (*response.Broker, error) {
-	err := broker.Validate()
+	brokerModel := broker.New()
+	err := bu.repository.GetByName(brokerModel)
 	if err != nil {
 		return nil, err
 	}
-	brokerModel := bu.repository.GetByName(&broker.Nome)
 	return brokerModel.NewResponse(), nil
 }
 
 func (bu *BrokerUseCase) GetById(broker *request.BrokerId) (*response.Broker, error) {
-	err := broker.Validate()
+	brokerModel := broker.New()
+	err := bu.repository.GetById(brokerModel)
 	if err != nil {
 		return nil, err
 	}
-	brokerModel := bu.repository.GetById(broker.ID)
 	return brokerModel.NewResponse(), nil
 }

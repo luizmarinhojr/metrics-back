@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"fmt"
+
 	"github.com/luizmarinhojr/metrics/internal/app/model"
 	"gorm.io/gorm"
 )
@@ -17,6 +19,15 @@ func newMetricRepository(db *gorm.DB) *MetricRepository {
 
 func (mr *MetricRepository) GetAll() *[]model.Metric {
 	var metrics []model.Metric
-	mr.db.Find(&metrics)
+	mr.db.Preload("Corretor").Find(&metrics)
+	fmt.Println(metrics)
 	return &metrics
+}
+
+func (mr *MetricRepository) Create(metric *model.Metric) error {
+	return mr.db.Create(metric).Error
+}
+
+func (mr *MetricRepository) GetById(metric *model.Metric) error {
+	return mr.db.Preload("Corretor").First(&metric, metric.ID).Error
 }

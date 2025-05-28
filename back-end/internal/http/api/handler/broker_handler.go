@@ -25,37 +25,54 @@ func (bh *BrokerHandler) GetAll(ctx *gin.Context) {
 }
 
 func (bh *BrokerHandler) Create(ctx *gin.Context) {
-	var broker request.BrokerName
+	var broker request.Broker
 	err := ctx.BindJSON(&broker)
+	err = broker.Validate()
 	if err != nil {
 		ctx.Writer.WriteHeader(http.StatusBadRequest)
 		return
 	}
 	br, erro := bh.usecase.Create(&broker)
 	if erro != nil {
-		ctx.Writer.WriteHeader(http.StatusBadRequest)
+		ctx.Writer.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	uri := ctx.Request.RequestURI
 	ctx.Status(http.StatusCreated)
-	ctx.Header("location", uri+"/id/"+fmt.Sprintf("%d", br.ID))
+	ctx.Header("id", fmt.Sprintf("%d", br.ID))
 }
 
 func (bh *BrokerHandler) GetByName(ctx *gin.Context) {
 	var broker request.BrokerName
 	err := ctx.BindJSON(&broker)
+	val, _ := ctx.Get("user_id")
+	vall, _ := ctx.Get("corretor_id")
+	fmt.Println("TESTE DE USER_ID: ", val)
+	fmt.Println("TESTE DE CORRETOR_ID: ", vall)
+	err = broker.Validate()
 	if err != nil {
 		ctx.Writer.WriteHeader(http.StatusBadRequest)
 		return
 	}
 	br, erro := bh.usecase.GetByName(&broker)
 	if erro != nil {
-		ctx.Writer.WriteHeader(http.StatusBadRequest)
+		ctx.Writer.WriteHeader(http.StatusNotFound)
 		return
 	}
 	ctx.JSON(http.StatusOK, br)
 }
 
-func (bg *BrokerHandler) GetById(ctx *gin.Context) {
-
+func (bh *BrokerHandler) GetById(ctx *gin.Context) {
+	var broker request.BrokerId
+	err := ctx.BindJSON(&broker)
+	err = broker.Validate()
+	if err != nil {
+		ctx.Writer.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	br, erro := bh.usecase.GetById(&broker)
+	if erro != nil {
+		ctx.Writer.WriteHeader(http.StatusNotFound)
+		return
+	}
+	ctx.JSON(http.StatusOK, br)
 }
