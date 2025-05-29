@@ -32,7 +32,9 @@ func (mh *MetricHandler) Create(ctx *gin.Context) {
 		ctx.Writer.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	response, erro := mh.usecase.Create(&metric)
+	corretorID := ctx.GetUint("corretor_id")
+	fmt.Println("CORRETOR_ID = ", corretorID)
+	response, erro := mh.usecase.Create(&metric, corretorID)
 	if erro != nil {
 		ctx.Writer.WriteHeader(http.StatusInternalServerError)
 		return

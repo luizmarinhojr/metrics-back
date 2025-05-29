@@ -44,10 +44,6 @@ func (bh *BrokerHandler) Create(ctx *gin.Context) {
 func (bh *BrokerHandler) GetByName(ctx *gin.Context) {
 	var broker request.BrokerName
 	err := ctx.BindJSON(&broker)
-	val, _ := ctx.Get("user_id")
-	vall, _ := ctx.Get("corretor_id")
-	fmt.Println("TESTE DE USER_ID: ", val)
-	fmt.Println("TESTE DE CORRETOR_ID: ", vall)
 	err = broker.Validate()
 	if err != nil {
 		ctx.Writer.WriteHeader(http.StatusBadRequest)

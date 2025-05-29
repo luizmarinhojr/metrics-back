@@ -26,8 +26,9 @@ func (mu *MetricUseCase) GetAll() *[]response.Metric {
 	return &metricsResponse
 }
 
-func (mu *MetricUseCase) Create(metric *request.Metric) (*response.Metric, error) {
+func (mu *MetricUseCase) Create(metric *request.Metric, id uint) (*response.Metric, error) {
 	metricModel := metric.New()
+	metricModel.CorretorID = id
 	err := mu.repository.Create(metricModel)
 	if err != nil {
 		return nil, err

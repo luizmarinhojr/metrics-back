@@ -7,7 +7,6 @@ import (
 
 type Metric struct {
 	Data           string `json:"data" validate:"required,min=3,max=30"`
-	CorretorID     uint   `json:"id_corretor" validate:"required"`
 	LeadsRecebidos int    `json:"leads_recebidos" validate:"max=2000"`
 	Ligacoes       int    `json:"ligacoes" validate:"max=2000"`
 	Espontaneo     int    `json:"espontaneo" validate:"max=2000"`
@@ -22,7 +21,6 @@ type Metric struct {
 func (mt *Metric) New() *model.Metric {
 	return &model.Metric{
 		Data:           mt.Data,
-		CorretorID:     mt.CorretorID,
 		LeadsRecebidos: mt.LeadsRecebidos,
 		Ligacoes:       mt.Ligacoes,
 		Espontaneo:     mt.Espontaneo,
