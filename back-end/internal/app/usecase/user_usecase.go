@@ -52,3 +52,8 @@ func (us *UserUseCase) Create(user *request.User) (*response.User, error) {
 	}
 	return userModel.NewResponse(), err
 }
+
+func (us *UserUseCase) ValidateJWT(token *string) error {
+	_, err := us.auth.JWT.ValidateJWT(token)
+	return err
+}

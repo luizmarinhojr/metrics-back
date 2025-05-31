@@ -1,0 +1,24 @@
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgb(247, 247, 247);
+}
+
+.rectangle {
+    display: flex;
+    flex-direction: column;
+    gap:25px;
+    width: 25vw;
+    text-align: center;
+    background-color: white;
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}

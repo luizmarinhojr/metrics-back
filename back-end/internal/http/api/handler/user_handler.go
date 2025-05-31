@@ -33,7 +33,7 @@ func (uh *UserHandler) GetByEmail(ctx *gin.Context) {
 		ctx.Writer.WriteHeader(http.StatusUnauthorized)
 		return
 	}
-	ctx.SetCookie("token", *token, int(time.Hour*24*15), "/", "", false, true)
+	ctx.SetCookie("token", *token, int(time.Hour*24*15), "/", "localhost:4200", false, true)
 	ctx.JSON(http.StatusOK, gin.H{"message": "Login succesful!"})
 }
 
@@ -52,4 +52,18 @@ func (uh *UserHandler) Create(ctx *gin.Context) {
 	}
 	ctx.Status(http.StatusCreated)
 	ctx.Header("id", fmt.Sprintf("%d", user.ID))
+}
+
+func (uh *UserHandler) ValidateToken(ctx *gin.Context) {
+	token, err := ctx.Cookie("token")
+	if err != nil {
+		ctx.JSON(http.StatusUnauthorized, gin.H{"valid": false})
+		return
+	}
+	erro := uh.UserUseCase.ValidateJWT(&token)
+	if erro != nil {
+		ctx.JSON(http.StatusUnauthorized, gin.H{"valid": false})
+		return
+	}
+	ctx.JSON(http.StatusOK, gin.H{"valid": true})
 }

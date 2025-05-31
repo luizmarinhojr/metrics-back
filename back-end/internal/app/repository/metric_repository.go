@@ -1,8 +1,6 @@
 package repository
 
 import (
-	"fmt"
-
 	"github.com/luizmarinhojr/metrics/internal/app/model"
 	"gorm.io/gorm"
 )
@@ -20,7 +18,6 @@ func newMetricRepository(db *gorm.DB) *MetricRepository {
 func (mr *MetricRepository) GetAll() *[]model.Metric {
 	var metrics []model.Metric
 	mr.db.Preload("Corretor").Find(&metrics)
-	fmt.Println(metrics)
 	return &metrics
 }
 
