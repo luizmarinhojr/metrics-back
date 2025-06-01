@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/luizmarinhojr/metrics/config"
 	"github.com/luizmarinhojr/metrics/internal/app/usecase"
 	"github.com/luizmarinhojr/metrics/internal/http/api/view/request"
 )
@@ -33,7 +34,7 @@ func (uh *UserHandler) Login(ctx *gin.Context) {
 		ctx.Writer.WriteHeader(http.StatusUnauthorized)
 		return
 	}
-	ctx.SetCookie("token", *token, int(time.Hour*24*15), "/", "localhost", true, true)
+	ctx.SetCookie("token", *token, int(time.Hour*24*15), "/", config.OWN_DOMAIN, true, true)
 	ctx.JSON(http.StatusOK, gin.H{"corretor": corretor.Nome})
 }
 
@@ -69,6 +70,6 @@ func (uh *UserHandler) ValidateToken(ctx *gin.Context) {
 }
 
 func (uh *UserHandler) Logout(ctx *gin.Context) {
-	ctx.SetCookie("token", "", int(time.Hour*24*15), "/", "localhost", true, true)
+	ctx.SetCookie("token", "", int(time.Hour*24*15), "/", config.OWN_DOMAIN, true, true)
 	ctx.Writer.WriteHeader(http.StatusOK)
 }

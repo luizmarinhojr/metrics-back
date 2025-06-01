@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    api: 'http://localhost:8080/api/v1/'
+    api: 'https://metrics-iyy6.onrender.com/api/v1/'
 };
