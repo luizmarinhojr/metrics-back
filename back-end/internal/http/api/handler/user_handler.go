@@ -33,7 +33,7 @@ func (uh *UserHandler) Login(ctx *gin.Context) {
 		ctx.Writer.WriteHeader(http.StatusUnauthorized)
 		return
 	}
-	ctx.SetCookie("token", *token, int(864000), "/", config.DOMAIN, true, true)
+	ctx.SetCookie("token", *token, int(864000), config.PATH, config.DOMAIN, true, true)
 	ctx.JSON(http.StatusOK, gin.H{"corretor": corretor.Nome})
 }
 
@@ -69,6 +69,6 @@ func (uh *UserHandler) ValidateToken(ctx *gin.Context) {
 }
 
 func (uh *UserHandler) Logout(ctx *gin.Context) {
-	ctx.SetCookie("token", "", int(864000), "/", config.DOMAIN, true, true)
+	ctx.SetCookie("token", "", int(864000), config.PATH, config.DOMAIN, true, true)
 	ctx.Writer.WriteHeader(http.StatusOK)
 }
