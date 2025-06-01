@@ -6,8 +6,7 @@ import { filter } from 'rxjs';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, HeaderComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit{
   route!: boolean

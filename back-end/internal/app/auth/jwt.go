@@ -5,10 +5,11 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/luizmarinhojr/metrics/config"
 	"github.com/luizmarinhojr/metrics/internal/app/model"
 )
 
-var jwtKey = []byte("secret-key")
+var jwtKey = []byte(config.JWT_SECRET_KEY)
 
 type claims struct {
 	UserID   uint `json:"user_id"`
