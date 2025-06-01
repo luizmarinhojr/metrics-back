@@ -9,9 +9,9 @@ import (
 
 type Metric struct {
 	gorm.Model
-	ID             uint   `gorm:"autoIncrement"`
-	Data           string `gorm:"not null"`
-	CorretorID     uint   `gorm:"not null"`
+	ID             uint      `gorm:"autoIncrement"`
+	Data           time.Time `gorm:"type:date"`
+	CorretorID     uint      `gorm:"not null"`
 	LeadsRecebidos int
 	Ligacoes       int
 	Espontaneo     int
@@ -20,7 +20,7 @@ type Metric struct {
 	Negociacoes    int
 	Propostas      int
 	Vendas         int
-	Observacao     string
+	Agendamentos   int
 	Corretor       Broker `gorm:"foreignKey:CorretorID"`
 	CreatedAt      time.Time
 	UpdatedAt      time.Time
@@ -40,7 +40,7 @@ func (mt *Metric) NewResponse() *response.Metric {
 		Negociacoes:    mt.Negociacoes,
 		Propostas:      mt.Propostas,
 		Vendas:         mt.Vendas,
-		Observacao:     mt.Observacao,
+		Agendamentos:   mt.Agendamentos,
 		CreatedAt:      &mt.CreatedAt,
 		UpdatedAt:      &mt.UpdatedAt,
 	}

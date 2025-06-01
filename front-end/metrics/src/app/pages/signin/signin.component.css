@@ -10,7 +10,7 @@ main {
     display: flex;
     flex-direction: column;
     gap:25px;
-    width: 25vw;
+    width: 30%;
     text-align: center;
     background-color: white;
     border-radius: 20px;
@@ -21,4 +21,9 @@ main {
     display: flex;
     flex-direction: column;
     gap: 15px;
+}
+
+.image {
+    display: flex;
+    justify-content: center;
 }

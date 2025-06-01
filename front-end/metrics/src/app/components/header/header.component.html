@@ -1,11 +1,11 @@
 <header>
-    <div class="container header">
+    <div class="container header p-2">
         <div class="logo">
             <a href="/"><img src="assets/images/texto-logo-inovatti-no-background.png" width="140px"></a>
         </div>
         <div class="context">
             <span class="message">Olá, {{ nome }}!</span>
-            <button type="button" class="btn btn-danger">Sair</button>
+            <button type="button" class="btn btn-danger" (click)="logout()">Sair</button>
         </div>
     </div>
 </header>

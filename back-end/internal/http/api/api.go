@@ -32,9 +32,10 @@ func InitializeApi(dependencies *dependencies.Dependencies) {
 			baseURL.POST("metric", dependencies.Middlewares.CheckAuth.Auth, dependencies.Handlers.MetricHandler.Create)
 		}
 		{
-			baseURL.POST("login", dependencies.Handlers.UserHandler.GetByEmail)
+			baseURL.POST("login", dependencies.Handlers.UserHandler.Login)
 			baseURL.POST("signup", dependencies.Handlers.UserHandler.Create)
 			baseURL.GET("validate-token", dependencies.Handlers.UserHandler.ValidateToken)
+			baseURL.GET("logout", dependencies.Handlers.UserHandler.Logout)
 		}
 	}
 

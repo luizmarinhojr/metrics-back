@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./components/header/header.component";
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +9,20 @@ import { HeaderComponent } from "./components/header/header.component";
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
+  route!: boolean
+  hideHeader = false;
+
+  constructor(private router: Router) {}
+  
+  ngOnInit() {
+    this.router.events
+      .pipe(
+        filter((event): event is NavigationEnd => event instanceof NavigationEnd)
+      )
+      .subscribe((event: NavigationEnd) => {
+        this.hideHeader = event.url === '/login';
+      });
+  }
+
 }

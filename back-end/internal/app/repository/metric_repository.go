@@ -17,7 +17,7 @@ func newMetricRepository(db *gorm.DB) *MetricRepository {
 
 func (mr *MetricRepository) GetAll() *[]model.Metric {
 	var metrics []model.Metric
-	mr.db.Preload("Corretor").Find(&metrics)
+	mr.db.Preload("Corretor").Order("data desc").Find(&metrics)
 	return &metrics
 }
 

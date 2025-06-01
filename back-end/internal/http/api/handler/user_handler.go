@@ -20,7 +20,7 @@ func newUserHandler(us *usecase.UserUseCase) *UserHandler {
 	}
 }
 
-func (uh *UserHandler) GetByEmail(ctx *gin.Context) {
+func (uh *UserHandler) Login(ctx *gin.Context) {
 	var request request.User
 	err := ctx.BindJSON(&request)
 	err = request.Validate()
@@ -28,13 +28,13 @@ func (uh *UserHandler) GetByEmail(ctx *gin.Context) {
 		ctx.Writer.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	token, erro := uh.UserUseCase.GetByEmail(&request)
+	token, corretor, erro := uh.UserUseCase.GetByEmail(&request)
 	if erro != nil {
 		ctx.Writer.WriteHeader(http.StatusUnauthorized)
 		return
 	}
-	ctx.SetCookie("token", *token, int(time.Hour*24*15), "/", "localhost:4200", false, true)
-	ctx.JSON(http.StatusOK, gin.H{"message": "Login succesful!"})
+	ctx.SetCookie("token", *token, int(time.Hour*24*15), "/", "localhost", false, true)
+	ctx.JSON(http.StatusOK, gin.H{"corretor": corretor.Nome})
 }
 
 func (uh *UserHandler) Create(ctx *gin.Context) {
@@ -57,13 +57,18 @@ func (uh *UserHandler) Create(ctx *gin.Context) {
 func (uh *UserHandler) ValidateToken(ctx *gin.Context) {
 	token, err := ctx.Cookie("token")
 	if err != nil {
-		ctx.JSON(http.StatusUnauthorized, gin.H{"valid": false})
+		ctx.JSON(http.StatusOK, gin.H{"valid": false})
 		return
 	}
 	erro := uh.UserUseCase.ValidateJWT(&token)
 	if erro != nil {
-		ctx.JSON(http.StatusUnauthorized, gin.H{"valid": false})
+		ctx.JSON(http.StatusOK, gin.H{"valid": false})
 		return
 	}
 	ctx.JSON(http.StatusOK, gin.H{"valid": true})
+}
+
+func (uh *UserHandler) Logout(ctx *gin.Context) {
+	ctx.SetCookie("token", "", int(time.Hour*24*15), "/", "localhost", false, true)
+	ctx.Writer.WriteHeader(http.StatusOK)
 }

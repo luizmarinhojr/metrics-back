@@ -11,16 +11,18 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  login(user: User): Observable<Object> {
-    return this.http.post(environment.api + 'login', user, {withCredentials: true}).pipe()
+  login(user: User): Observable<{corretor: string}> {
+    return this.http.post<{corretor: string}>(environment.api + 'login', user, {withCredentials: true})
+  }
+
+  logout() {
+    return this.http.get(environment.api + 'logout', {withCredentials: true})
   }
 
   verifyToken(): Promise<boolean> {
     return firstValueFrom(
-      this.http.get<{ valid: boolean }>(
-        environment.api + 'validate-token',
-        { withCredentials: true }
-      ).pipe(
+      this.http.get<{ valid: boolean }>(environment.api + 'validate-token',{ withCredentials: true })
+      .pipe(
         map(response => response.valid),
         catchError(() => of(false))
       )

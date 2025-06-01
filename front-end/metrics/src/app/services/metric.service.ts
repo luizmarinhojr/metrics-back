@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MetricResponse } from '../models/metric';
-import { Observable } from 'rxjs';
+import { MetricRequest, MetricResponse } from '../models/metric';
+import { map, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -11,8 +11,11 @@ export class MetricService {
 
   constructor(private http: HttpClient) { }
 
-  GetAll(): Observable<MetricResponse[]> {
+  getAll(): Observable<MetricResponse[]> {
     return this.http.get<MetricResponse[]>(environment.api + 'metrics', {withCredentials: true})
-      .pipe()
+  }
+
+  register(metric: MetricRequest) {
+    return this.http.post<{}>(environment.api + 'metric', metric, {withCredentials: true})
   }
 }

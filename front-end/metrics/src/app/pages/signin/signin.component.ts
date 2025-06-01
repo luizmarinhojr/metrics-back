@@ -32,6 +32,7 @@ export class SigninComponent implements OnInit {
       password: this.form.get('password')?.value
     }).subscribe({
         next: (value) => {
+          localStorage.setItem("broker", value.corretor)
           this.response = true;
           console.log('Login bem-sucedido!');
           this.router.navigate(['/inicio']);

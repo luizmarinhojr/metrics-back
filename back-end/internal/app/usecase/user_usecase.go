@@ -22,21 +22,21 @@ func newUserUseCase(rp *repository.UserRepository, auth *auth.Auth) *UserUseCase
 	}
 }
 
-func (us *UserUseCase) GetByEmail(user *request.User) (*string, error) {
+func (us *UserUseCase) GetByEmail(user *request.User) (*string, *response.Broker, error) {
 	userModel := user.New()
 	err := us.repository.GetByEmail(userModel)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	erro := us.passwordService.CheckPasswordHash([]byte(user.Password), userModel.Password)
 	if erro != nil {
-		return nil, erro
+		return nil, nil, erro
 	}
 	token, erroa := us.auth.JWT.GenerateJWT(userModel)
 	if erroa != nil {
-		return nil, erroa
+		return nil, nil, erroa
 	}
-	return &token, nil
+	return &token, userModel.Corretor.NewResponse(), nil
 }
 
 func (us *UserUseCase) Create(user *request.User) (*response.User, error) {

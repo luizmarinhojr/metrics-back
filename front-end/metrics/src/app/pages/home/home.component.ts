@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   }
 
   getMetrics() {
-    this.service.GetAll().subscribe(
+    this.service.getAll().subscribe(
       result => this.metricsResponse = result
     )
   }

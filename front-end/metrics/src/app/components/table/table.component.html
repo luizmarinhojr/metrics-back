@@ -1,4 +1,4 @@
-<div class="table-responsive bg-white shadow rounded p-2 mt-3">
+<div class="table-responsive bg-white shadow rounded p-2 my-3">
     <table class="table table-striped my-4 align-middle">
         <thead>
             <tr>
@@ -12,15 +12,15 @@
                 <th>Negociação</th>
                 <th>Proposta</th>
                 <th>Venda</th>
-                <th>Obs.</th>
+                <th>Agendamentos</th>
             </tr>
         </thead>
         <tbody class="table-group-divider">
             @for (item of metrics; track $index) {
                 <tr>
-                    <td>{{ item.data }}</td>
-                    <td>{{ item.nome }}</td>
-                    <td>{{ item.leadsRecebidos }}</td>
+                    <td>{{ item.data | date: 'dd/MM/yyyy' }}</td>
+                    <td>{{ item.corretor.nome }}</td>
+                    <td>{{ item.leads_recebidos }}</td>
                     <td>{{ item.ligacoes }}</td>
                     <td>{{ item.espontaneo }}</td>
                     <td>{{ item.captacoes }}</td>
@@ -28,7 +28,7 @@
                     <td>{{ item.negociacoes }}</td>
                     <td>{{ item.propostas }}</td>
                     <td>{{ item.vendas }}</td>
-                    <td>{{ item.observacao }}</td>
+                    <td>{{ item.agendamentos }}</td>
                 </tr>
             }
         </tbody>

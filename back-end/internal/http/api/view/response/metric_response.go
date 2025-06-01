@@ -4,7 +4,7 @@ import "time"
 
 type Metric struct {
 	ID             uint       `json:"id"`
-	Data           string     `json:"data"`
+	Data           time.Time  `json:"data"`
 	Corretor       Broker     `json:"corretor"`
 	LeadsRecebidos int        `json:"leads_recebidos"`
 	Ligacoes       int        `json:"ligacoes"`
@@ -14,7 +14,7 @@ type Metric struct {
 	Negociacoes    int        `json:"negociacoes"`
 	Propostas      int        `json:"propostas"`
 	Vendas         int        `json:"vendas"`
-	Observacao     string     `json:"observacao"`
+	Agendamentos   int        `json:"agendamentos"`
 	CreatedAt      *time.Time `json:"created_at"`
 	UpdatedAt      *time.Time `json:"updated_at"`
 }
