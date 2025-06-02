@@ -6,7 +6,7 @@ import (
 	"github.com/luizmarinhojr/metrics/internal/http/api"
 )
 
-func Main() {
+func main() {
 	db := database.OpenConnection()
 
 	dependencies := dependencies.Inject(db)
