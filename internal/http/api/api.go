@@ -23,7 +23,7 @@ func InitializeApi(dependencies *dependencies.Dependencies) {
 		MaxAge:           300,                                                           // Tempo máximo em segundos que a resposta de pré-voo pode ser armazenada em cache
 	}))
 
-	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, ginSwagger.URL("doc.json")))
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	
 
 	baseURL := r.Group("/api/v1")
