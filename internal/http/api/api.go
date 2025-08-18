@@ -15,7 +15,7 @@ func InitializeApi(dependencies *dependencies.Dependencies) {
 	r := gin.Default()
 
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{config.DOMAIN, "http://localhost:5173"},                                       // Permite requisições do seu front-end Angular
+		AllowOrigins:     []string{config.DOMAIN, "http://localhost:5173"},              // Permite requisições do seu front-end Angular
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},           // Métodos HTTP permitidos
 		AllowHeaders:     []string{"Origin", "Content-Type", "Accept", "Authorization"}, // Headers permitidos
 		ExposeHeaders:    []string{"Content-Length"},                                    // Headers que podem ser expostos ao cliente
@@ -23,7 +23,8 @@ func InitializeApi(dependencies *dependencies.Dependencies) {
 		MaxAge:           300,                                                           // Tempo máximo em segundos que a resposta de pré-voo pode ser armazenada em cache
 	}))
 
-	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, ginSwagger.URL("doc.json")))
+	
 
 	baseURL := r.Group("/api/v1")
 	{
