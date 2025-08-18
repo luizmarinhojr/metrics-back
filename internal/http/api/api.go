@@ -11,7 +11,7 @@ func InitializeApi(dependencies *dependencies.Dependencies) {
 	r := gin.Default()
 
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{config.DOMAIN},                                       // Permite requisições do seu front-end Angular
+		AllowOrigins:     []string{config.DOMAIN, "http://localhost:5173"},                                       // Permite requisições do seu front-end Angular
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},           // Métodos HTTP permitidos
 		AllowHeaders:     []string{"Origin", "Content-Type", "Accept", "Authorization"}, // Headers permitidos
 		ExposeHeaders:    []string{"Content-Length"},                                    // Headers que podem ser expostos ao cliente
@@ -28,7 +28,7 @@ func InitializeApi(dependencies *dependencies.Dependencies) {
 			baseURL.POST("broker", dependencies.Middlewares.CheckAuth.Auth, dependencies.Handlers.BrokerHandler.Create)
 		}
 		{
-			baseURL.GET("metrics", dependencies.Middlewares.CheckAuth.Auth, dependencies.Handlers.MetricHandler.GetAll)
+			baseURL.GET("metrics", dependencies.Handlers.MetricHandler.GetAll)
 			baseURL.GET("metric/id", dependencies.Middlewares.CheckAuth.Auth, dependencies.Handlers.MetricHandler.GetByID)
 			baseURL.POST("metric", dependencies.Middlewares.CheckAuth.Auth, dependencies.Handlers.MetricHandler.Create)
 		}
