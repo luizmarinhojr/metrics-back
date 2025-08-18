@@ -23,6 +23,8 @@ func InitializeApi(dependencies *dependencies.Dependencies) {
 		MaxAge:           300,                                                           // Tempo máximo em segundos que a resposta de pré-voo pode ser armazenada em cache
 	}))
 
+	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
 	baseURL := r.Group("/api/v1")
 	{
 		{
@@ -41,9 +43,6 @@ func InitializeApi(dependencies *dependencies.Dependencies) {
 			baseURL.POST("signup", dependencies.Handlers.UserHandler.Create)
 			baseURL.GET("validate-token", dependencies.Handlers.UserHandler.ValidateToken)
 			baseURL.GET("logout", dependencies.Handlers.UserHandler.Logout)
-		}
-		{
-			baseURL.GET("docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 		}
 	}
 
