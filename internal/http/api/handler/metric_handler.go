@@ -19,11 +19,30 @@ func newMetricHandler(us *usecase.MetricUseCase) *MetricHandler {
 	}
 }
 
+// @Summary Obter todas as métricas
+// @Description Retorna a lista de todas as métricas.
+// @Tags metrics
+// @Accept json
+// @Produce json
+// @Success 200 {array} response.Metric "Lista de métricas"
+// @Router /metrics [get]
 func (mh *MetricHandler) GetAll(ctx *gin.Context) {
 	metrics := mh.usecase.GetAll()
 	ctx.JSON(http.StatusOK, metrics)
 }
 
+// @Summary Criar uma nova métrica
+// @Description Cria uma nova métrica com os dados fornecidos. Requer autenticação.
+// @Tags metrics
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param metric body request.Metric true "Métrica a ser criada"
+// @Success 201 {object} string "ID da métrica criada"
+// @Failure 400 {object} string "Erro de validação"
+// @Failure 401 {string} string "Não autorizado"
+// @Failure 500 {object} string "Erro interno do servidor"
+// @Router /metric [post]
 func (mh *MetricHandler) Create(ctx *gin.Context) {
 	var metric request.Metric
 	err := ctx.BindJSON(&metric)
@@ -42,6 +61,18 @@ func (mh *MetricHandler) Create(ctx *gin.Context) {
 	ctx.Header("id", fmt.Sprintf("%d", response.ID))
 }
 
+// @Summary Obter métrica pelo ID
+// @Description Retorna uma métrica específica pelo ID. Requer autenticação.
+// @Tags metrics
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param metric body request.MetricId true "ID da métrica"
+// @Success 200 {object} response.Metric "Métrica encontrada"
+// @Failure 400 {object} string "Erro de validação"
+// @Failure 401 {string} string "Não autorizado"
+// @Failure 404 {object} string "Métrica não encontrada"
+// @Router /metric/id [get]
 func (mh *MetricHandler) GetByID(ctx *gin.Context) {
 	var metric request.MetricId
 	err := ctx.BindJSON(&metric)

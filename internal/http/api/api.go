@@ -5,6 +5,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/luizmarinhojr/metrics/config"
 	"github.com/luizmarinhojr/metrics/internal/app/dependencies"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+
+	_ "github.com/luizmarinhojr/metrics/docs"
 )
 
 func InitializeApi(dependencies *dependencies.Dependencies) {
@@ -37,6 +41,9 @@ func InitializeApi(dependencies *dependencies.Dependencies) {
 			baseURL.POST("signup", dependencies.Handlers.UserHandler.Create)
 			baseURL.GET("validate-token", dependencies.Handlers.UserHandler.ValidateToken)
 			baseURL.GET("logout", dependencies.Handlers.UserHandler.Logout)
+		}
+		{
+			baseURL.GET("docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 		}
 	}
 
