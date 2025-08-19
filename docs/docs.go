@@ -718,9 +718,9 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "",
+	Host:             "api.naster.com.br",
 	BasePath:         "/api/v1",
-	Schemes:          []string{},
+	Schemes:          []string{"https"},
 	Title:            "Metrics API",
 	Description:      "Esta é uma API de métricas para a aplicação Metrics. A chave da API é armazenada através de cookie, portanto, para conseguir a chave da API basta que faça o login no endpoint \"login\".",
 	InfoInstanceName: "swagger",

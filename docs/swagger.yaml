@@ -132,6 +132,7 @@ definitions:
     type: object
 externalDocs:
   url: https://github.com/luizmarinhojr/metrics-back
+host: api.naster.com.br
 info:
   contact:
     email: luizmarinhodev@gmail.com
@@ -455,6 +456,8 @@ paths:
       summary: Validar token de autenticação
       tags:
       - users
+schemes:
+- https
 securityDefinitions:
   ApiKeyAuth:
     in: cookie
