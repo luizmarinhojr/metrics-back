@@ -1,6 +1,8 @@
 package api
 
 import (
+	"net/http"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/luizmarinhojr/metrics/config"
@@ -23,7 +25,16 @@ func InitializeApi(dependencies *dependencies.Dependencies) {
 		MaxAge:           300,                                                           // Tempo máximo em segundos que a resposta de pré-voo pode ser armazenada em cache
 	}))
 
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	// r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+	r.GET("/swagger/*any", func(ctx *gin.Context) {
+		if ctx.Request.URL.String() == "/swagger/" {
+			ctx.Redirect(http.StatusPermanentRedirect, "/swagger/index.html")
+			return
+		}
+
+		ginSwagger.WrapHandler(swaggerFiles.Handler, ginSwagger.DefaultModelsExpandDepth(-1))(ctx)
+	})
 	
 
 	baseURL := r.Group("/api/v1")
